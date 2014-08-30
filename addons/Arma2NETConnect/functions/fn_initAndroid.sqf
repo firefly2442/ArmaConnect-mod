@@ -4,7 +4,7 @@
 //"Code and conditions are executed in non-scheduled environment."
 //This should be better for performance
 
-diag_log "Starting ArmaAndroid";
+diag_log "Starting ArmaConnect";
 
 ["itemAdd", ["uniqueId", {
 
@@ -25,7 +25,7 @@ diag_log "Starting ArmaAndroid";
 
 		_return = "Arma2Net" callExtension format ["Arma2NETAndroid ['player', '%1', '%2', '%3', '%4']", _map, _playerPos select 0, _playerPos select 1, _degrees];
 		while {isNil("_return") || _return == ""} do {
-			_return = "Arma2Net" callExtension "Arma2NETAndroid getresult";
+			_return = "Arma2Net" callExtension "Arma2NETConnect getresult";
 			//apparently we can't use sleep in this loop structure, I guess this is OK for now...
 			//sleep 0.5; //sleep for a half-second so we don't thrash the client with callExtension calls
 		};
@@ -48,7 +48,7 @@ diag_log "Starting ArmaAndroid";
 		
 		_return = "Arma2Net" callExtension format ["Arma2NETAndroid ['%1']", _datetime];
 		while {isNil("_return") || _return == ""} do {
-			_return = "Arma2Net" callExtension "Arma2NETAndroid getresult";
+			_return = "Arma2Net" callExtension "Arma2NETConnect getresult";
 			//apparently we can't use sleep in this loop structure, I guess this is OK for now...
 			//sleep 0.5; //sleep for a half-second so we don't thrash the client with callExtension calls
 		};

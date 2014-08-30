@@ -3,25 +3,25 @@
 
 class CfgPatches
 {
-	class Arma2NETAndroid
+	class Arma2NETConnect
 	{
 		units[] = {};
 		weapons[] = {};
 		requiredVersion = 1.08;
 		requiredAddons[] = {};
-		versionDesc = "Arma2NETAndroid";
+		versionDesc = "Arma2NETConnect";
 		author[] = {"Firefly2442"};
 	};
 };
 
 class CfgFunctions
 {
-	class Arma2NETAndroid
+	class Arma2NETConnect
 	{
-		tag = "Arma2NETAndroid";
+		tag = "Arma2NETConnect";
 		class functions
 		{
-			file = "\Arma2NETAndroid\functions";
+			file = "\Arma2NETConnect\functions";
 			class initAndroid{
 				postInit = 1; // 1 to call the function upon mission start, after objects are initialized. Passed arguments are ["postInit"]
 			};
