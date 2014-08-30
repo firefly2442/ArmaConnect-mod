@@ -4,7 +4,7 @@
 //"Code and conditions are executed in non-scheduled environment."
 //This should be better for performance
 
-diag_log "Starting ArmaConnect";
+diag_log "Starting Arma2NETConnect";
 
 ["itemAdd", ["uniqueId", {
 
@@ -23,7 +23,7 @@ diag_log "Starting ArmaConnect";
 		//get player rotation
 		_degrees = getDir player;
 
-		_return = "Arma2Net" callExtension format ["Arma2NETAndroid ['player', '%1', '%2', '%3', '%4']", _map, _playerPos select 0, _playerPos select 1, _degrees];
+		_return = "Arma2Net" callExtension format ["Arma2NETConnect ['player', '%1', '%2', '%3', '%4']", _map, _playerPos select 0, _playerPos select 1, _degrees];
 		while {isNil("_return") || _return == ""} do {
 			_return = "Arma2Net" callExtension "Arma2NETConnect getresult";
 			//apparently we can't use sleep in this loop structure, I guess this is OK for now...
@@ -46,7 +46,7 @@ diag_log "Starting ArmaConnect";
 		_date = _date + _time;
 		_datetime = format ["datetime,%1,%2,%3,%4,%5,%6,%7", _date select 0, _date select 1, _date select 2, _date select 3, _date select 4, _date select 5, _date select 6];
 		
-		_return = "Arma2Net" callExtension format ["Arma2NETAndroid ['%1']", _datetime];
+		_return = "Arma2Net" callExtension format ["Arma2NETConnect ['%1']", _datetime];
 		while {isNil("_return") || _return == ""} do {
 			_return = "Arma2Net" callExtension "Arma2NETConnect getresult";
 			//apparently we can't use sleep in this loop structure, I guess this is OK for now...
