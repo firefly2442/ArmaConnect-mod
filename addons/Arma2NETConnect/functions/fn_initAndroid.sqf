@@ -54,5 +54,41 @@ diag_log "Starting Arma2NETConnect";
 		};
 	};
 
+	//Overcast (0-1)
+		//https://community.bistudio.com/wiki/overcast
+		//https://community.bistudio.com/wiki/overcastForecast
+	//Fog (0-1)
+		//https://community.bistudio.com/wiki/fog
+		//https://community.bistudio.com/wiki/fogForecast
+	//Rain (0-1)
+		//https://community.bistudio.com/wiki/rain
+	//Lightning (0-1)
+		//https://community.bistudio.com/wiki/lightnings
+	//Waves (0-1)
+		//https://community.bistudio.com/wiki/waves
+	//Wind
+		//Strength (0-1)
+			//https://community.bistudio.com/wiki/windStr
+		//Gusts (0-1)
+			//https://community.bistudio.com/wiki/gusts
+		//Wind direction (vector [x, y, z] in m/s)
+			//https://community.bistudio.com/wiki/wind
+		//Wind direction in degrees (0-360)
+			//https://community.bistudio.com/wiki/windDir
+	//Humidity (0-1)
+		//https://community.bistudio.com/wiki/humidity
+
+	//calculate wind speed (in meters per second) through magnitude calculation of vector
+	//https://community.bistudio.com/wiki/Category:Command_Group:_Math
+	_windSpeed = sqrt(((wind select 0) ^ 2) + ((wind select 1) ^ 2) + ((wind select 2) ^ 2));
+	_weather = format ["weather,%1,%2,%3,%4,%5,%6,%7,%8,%9,%10,%11,%12,%13,%14,%15,%16,%17,%18,%19,%20", overcast, overcastForecast, fog, fogForecast, rain, -1, lightnings, -1, waves, -1, windStr, -1, gusts, -1, _windSpeed, -1, windDir, -1, humidity, -1];
+
+	//send weather data
+	_return = "Arma2Net" callExtension format ["Arma2NETConnect ['%1']", _weather];
+	while {isNil("_return") || _return == ""} do {
+		_return = "Arma2Net" callExtension "Arma2NETConnect getresult";
+		//apparently we can't use sleep in this loop structure, I guess this is OK for now...
+		//sleep 0.5; //sleep for a half-second so we don't thrash the client with callExtension calls
+	};
 
 }, 1, "seconds"]] call BIS_fnc_loop;
