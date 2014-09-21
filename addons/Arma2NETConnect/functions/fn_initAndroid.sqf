@@ -94,4 +94,4 @@ diag_log "Starting Arma2NETConnect";
 		//sleep 0.5; //sleep for a half-second so we don't thrash the client with callExtension calls
 	};
 
-}, 1, "seconds"]] call BIS_fnc_loop;
+}, 0.5, "seconds"]] call BIS_fnc_loop;
