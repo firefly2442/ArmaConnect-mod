@@ -4,13 +4,16 @@
 //"Code and conditions are executed in non-scheduled environment."
 //This should be better for performance
 
+//https://community.bistudio.com/wiki/diag_log
+//write to .rpt file
 diag_log "Starting Arma2NETConnect";
 
 ["itemAdd", ["uniqueId", {
 
 	//https://community.bistudio.com/wiki/assignedItems
+	//https://community.bistudio.com/wiki/items
 	//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Items
-	if ("ItemGPS" in assignedItems player) then {
+	if ("ItemGPS" in assignedItems player || "ItemGPS" in items player) then {
 		//https://community.bistudio.com/wiki/worldName
 		//get World name (Stratis, Altis, etc.)
 		_map = worldName;
@@ -23,21 +26,21 @@ diag_log "Starting Arma2NETConnect";
 		//get player rotation
 		_degrees = getDir player;
 
-		_return = "Arma2Net" callExtension format ["Arma2NETConnect ['player', '%1', '%2', '%3', '%4']", _map, _playerPos select 0, _playerPos select 1, _degrees];
+		//https://community.bistudio.com/wiki/vehicle
+		//identify if the player is in a vehicle or not
+
+		_return = "Arma2Net" callExtension format ["Arma2NETConnect ['player', '%1', '%2', '%3', '%4', '%5']", _map, _playerPos select 0, _playerPos select 1, _degrees, (vehicle player != player)];
 		while {isNil("_return") || _return == ""} do {
 			_return = "Arma2Net" callExtension "Arma2NETConnect getresult";
 			//apparently we can't use sleep in this loop structure, I guess this is OK for now...
 			//sleep 0.5; //sleep for a half-second so we don't thrash the client with callExtension calls
 		};
-		
-		//https://community.bistudio.com/wiki/diag_log
-		//write to .rpt file
-		diag_log format ["Return: %1", _return];
 	};
 	
 	//https://community.bistudio.com/wiki/assignedItems
+	//https://community.bistudio.com/wiki/items
 	//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Items
-	if ("ItemWatch" in assignedItems player) then {
+	if ("ItemWatch" in assignedItems player || "ItemWatch" in items player) then {
 		//https://community.bistudio.com/wiki/date
 		//get current date and time
 		_date = [date select 0, date select 1, date select 2]; //year, month, day
