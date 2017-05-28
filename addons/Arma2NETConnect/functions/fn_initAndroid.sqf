@@ -100,7 +100,7 @@ diag_log "Starting Arma2NETConnect";
 	//https://community.bistudio.com/wiki/getPosASL
 	_ASLHeight = getPosASL player select 2;
 	//send altimeter data
-	_altimeter = format ["altimeter,%1,%2", _altimeter, _ASLHeight];
+	_altimeter = format ["altimeter,%1,%2", _terrainHeight, _ASLHeight];
 	_return = "Arma2Net" callExtension format ["Arma2NETConnect ['%1']", _altimeter];
 	while {isNil("_return") || _return == ""} do {
 		_return = "Arma2Net" callExtension "Arma2NETConnect getresult";
