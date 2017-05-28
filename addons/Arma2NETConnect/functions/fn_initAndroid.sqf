@@ -45,9 +45,9 @@ diag_log "Starting Arma2NETConnect";
 		//get current date and time
 		_date = [date select 0, date select 1, date select 2]; //year, month, day
 		//https://community.bistudio.com/wiki/BIS_fnc_timeToString
-		_time = [daytime, "ARRAY"] call bis_fnc_TimeToString; //hour, minute, seconds, milliseconds
+		_time = [daytime, "ARRAY"] call bis_fnc_TimeToString; //hour, minute, seconds, milliseconds (not returned)
 		_date = _date + _time;
-		_datetime = format ["datetime,%1,%2,%3,%4,%5,%6,%7", _date select 0, _date select 1, _date select 2, _date select 3, _date select 4, _date select 5, _date select 6];
+		_datetime = format ["datetime,%1,%2,%3,%4,%5,%6", _date select 0, _date select 1, _date select 2, _date select 3, _date select 4, _date select 5];
 		
 		_return = "Arma2Net" callExtension format ["Arma2NETConnect ['%1']", _datetime];
 		while {isNil("_return") || _return == ""} do {
