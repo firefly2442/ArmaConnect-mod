@@ -36,7 +36,7 @@ diag_log "Starting Arma2NETConnect";
 			//sleep 0.5; //sleep for a half-second so we don't thrash the client with callExtension calls
 		};
 	};
-	
+
 	//https://community.bistudio.com/wiki/assignedItems
 	//https://community.bistudio.com/wiki/items
 	//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Items
@@ -88,6 +88,20 @@ diag_log "Starting Arma2NETConnect";
 
 	//send weather data
 	_return = "Arma2Net" callExtension format ["Arma2NETConnect ['%1']", _weather];
+	while {isNil("_return") || _return == ""} do {
+		_return = "Arma2Net" callExtension "Arma2NETConnect getresult";
+		//apparently we can't use sleep in this loop structure, I guess this is OK for now...
+		//sleep 0.5; //sleep for a half-second so we don't thrash the client with callExtension calls
+	};
+
+	//https://community.bistudio.com/wiki/Position
+	//https://community.bistudio.com/wiki/getTerrainHeightASL
+	_terrainHeight = getTerrainHeightASL(position player);
+	//https://community.bistudio.com/wiki/getPosASL
+	_ASLHeight = getPosASL player select 2;
+	//send altimeter data
+	_altimeter = format ["altimeter,%1,%2", _altimeter, _ASLHeight];
+	_return = "Arma2Net" callExtension format ["Arma2NETConnect ['%1']", _altimeter];
 	while {isNil("_return") || _return == ""} do {
 		_return = "Arma2Net" callExtension "Arma2NETConnect getresult";
 		//apparently we can't use sleep in this loop structure, I guess this is OK for now...
